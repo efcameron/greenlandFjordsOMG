@@ -1,0 +1,5 @@
+paths:
+  csv_dir: "Working_data/OMG_data/greenland"
+  nc_dir: "Working_data/OMG_data/GSW_CTDs_v3"
+  results_dir: "Results"
+
