@@ -14,5 +14,6 @@ def load_paths():
         "base_dir": base_dir,
         "csv_dir": base_dir / paths["csv_dir"],
         "nc_dir": base_dir / paths["nc_dir"],
-        "results_dir": base_dir / paths["results_dir"]
+        "results_dir": base_dir / paths["results_dir"],
+        "omg_dir": base_dir / paths["omg_dir"]
     }
