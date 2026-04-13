@@ -26,7 +26,8 @@ Fjord_Shelf_Observations/
 |-- Working_data
 |   |-- OMG_data      # put downloaded CTD and AXCTD files here
 |       |-- GSW_CTDs     # put TEOS-10 GSW converted netCDF files here
-|       |-- greenland       # put csv files here
+|       |-- greenland    # put files from the PURE data repository here
+|           |-- README.md  <-- README.md for the data files in PURE. 
 |           |-- klu_fjord_data.csv
 |           |-- qim_fjord_data.csv 
 |           |-- fjord_data.csv
