@@ -24,8 +24,8 @@ This repository is designed to sit within a larger working directory:
 
 Fjord_Shelf_Observations/
 |-- Working_data
-|   |-- OMG_data
-|       |-- GSW_CTDs_v3     # put netCDF files here
+|   |-- OMG_data      # put downloaded CTD and AXCTD files here
+|       |-- GSW_CTDs     # put TEOS-10 GSW converted netCDF files here
 |       |-- greenland       # put csv files here
 |           |-- klu_fjord_data.csv
 |           |-- qim_fjord_data.csv 
@@ -45,7 +45,7 @@ Fjord_Shelf_Observations/
 |      |-- pds_histograms.ipynb
 |-- Results
 |   |-- thermalForcing
-|   |-- deltaProfiles_v3
+|   |-- deltaProfiles
 |   |-- caseStudies_qimKlu
 
 ## Configuration
@@ -89,17 +89,26 @@ The temperature and salinity values in these netCDF files should be converted to
 This script will place updated copies of the netCDF files with absolute salinity and conservative temperature in the folder:
 Working_data/OMG_data/GSW_CTDs_v3 
 
-## CSV data 
+## CSV Files 
 Preprocessed CSV files should be placed in:
 Working_data/OMG_data/greenland/
 
 Expected CSV files include:
 
-klu_fjord_data.csv
-qim_fjord_data.csv
-fjord_data.csv
-PDS_profiles.csv
-along with the .txt file: allFilenames.txt.
+klu_fjord_data.csv 
+--> contains data on Kangerluluk Fjord
+
+qim_fjord_data.csv 
+--> contains data on Qarassap Imaa Fjord
+
+fjord_data.csv 
+--> contains data on all fjords in the study and matches CTD pairs 
+
+PDS_profiles.csv 
+--> long-form CSV that contains PDS (%) values for each fjord at each depth increment, for beta=1.2 and beta=1.6.
+
+allFilenames.txt
+--> Text file listing all the CTD and AXCTD filenames to allow them to be converted to absolute salinity and conservative temperature.
 
 
 CSV and txt files are publicly accessible from: DOI for PURE repository XXX
