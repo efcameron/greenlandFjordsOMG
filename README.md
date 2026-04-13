@@ -55,7 +55,7 @@ File paths are managed through config.yaml:
 paths:
   omg_dir: "Working_data/OMG_data"
   csv_dir: "Working_data/OMG_data/greenland"
-  nc_dir: "Working_data/OMG_data/GSW_CTDs_v3"
+  nc_dir: "Working_data/OMG_data/GSW_CTDs"
   results_dir: "Results"
 
 These paths are resolved relative to a base directory, defined in config_loader.py as:
