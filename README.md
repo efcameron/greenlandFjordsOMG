@@ -112,7 +112,7 @@ allFilenames.txt
 --> Text file listing all the CTD and AXCTD filenames to allow them to be converted to absolute salinity and conservative temperature.
 
 
-CSV and txt files are publicly accessible from: DOI for PURE repository XXX
+The above CSV and txt files are publicly accessible from: DOI: https://doi.org/10.17630/8dc6f997-8aa9-43f5-8339-83a0cef63b5b 
 
 ## Usage
 
@@ -159,6 +159,10 @@ Mas e Braga, M. (2025) “Supplementary datasets for Mas e Braga et al., "Contro
 with any additional measurements sourced from:
 
 Morlighem, M. et al. (2022). IceBridge BedMachine Greenland. (IDBMG4, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/GMEVBWFLWA7X. Date Accessed 05-06-2024.
+
+## CSV and .txt files can be accessed at: 
+
+Cameron, E. F. et al. (2026), “Paired Fjord-Mouth and Near-Glacier CTD/AXCTD Profiles for 39 Greenlandic Fjords from 2016-2021”. [Dataset]. University of St Andrews Research Portal. https://doi.org/10.17630/8dc6f997-8aa9-43f5-8339-83a0cef63b5b
 
 ## Contact:
 
