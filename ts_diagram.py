@@ -9,7 +9,6 @@ Public API
 plot_ts(ax, profiles, fjord_row=None, ...)
     Plot a full TS diagram onto an existing Axes, including:
       - Density contours (sigma0)
-      - DSOW contour (27.8 kg/m³)
       - Water mass labels and AWm shading
       - Gade (subglacial melt) lines
       - Freshwater mixing lines
@@ -42,11 +41,11 @@ Each key maps to a dict with 'depth', 'temp', 'sal' as 1-D numpy arrays, e.g.:
 """
 
 from __future__ import annotations
-
 import numpy as np
 import matplotlib.pyplot as plt
 import gsw
 from shapely.geometry import Polygon
+import pandas as pd
 
 # ── Colour / label lookup ──────────────────────────────────────────────────────
 _COLORS = {"fjord_mouth": "black", "mid_fjord": "orange", "near_glacier": "red"}
@@ -63,8 +62,8 @@ _LABEL_OFFSETS = {
 }
 
 # ── Axis limits ────────────────────────────────────────────────────────────────
-_XMIN, _XMAX = 30, 35
-_YMIN, _YMAX = -1, 4.5
+_XMIN, _XMAX = 31, 35.5 # was 30, 35
+_YMIN, _YMAX = -2, 5 # was -1, 4.5
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -103,19 +102,6 @@ def _plot_freshwater_mixing_lines(
     for theta_ff in seawater_temps:
         m = (theta_ff - theta_sub) / (seawater_salinity - 0)
         ax.plot(S_fw, theta_sub + m * S_fw, "--", color="blue", alpha=0.2, lw=1)
-
-
-def _add_water_mass_patches(ax, dsow_contour):
-    """
-    Label PW, PWw, and AWm on the TS diagram 
-    
-    """
-    
-    # Water mass labels
-    ax.text(34.77,  3.0,  "AWm", color="darkgrey", ha="center", va="center", fontsize=16, zorder=15)
-    ax.text(33.7,  -0.3,  "PW",  color="darkgrey", ha="center", va="center", fontsize=16, zorder=10)
-    ax.text(31.5,   2.5,  "PWw", color="darkgrey", ha="center", va="center", fontsize=16, zorder=10)
-
 
 def _add_depth_markers(
     ax,
@@ -160,6 +146,27 @@ def _add_geometry_markers(ax, depths, salinity, temperature, fjord_row):
             if np.isfinite(s) and np.isfinite(t):
                 ax.scatter(s, t, color=colour, marker="o",
                            s=80, zorder=9, label=label)
+                
+def _plot_water_mass_markers(ax, water_mass_csv, fjord): # remove if we dont like the water mass markers
+    """
+    Plot literature water mass positions as black crosses with labels.
+    Filters to the relevant fjord ('klu' or 'qim') from the TEOS-10 CSV.
+    """
+    df = pd.read_csv(water_mass_csv)
+    df = df[df["fjord"] == fjord]
+
+    for _, row in df.iterrows():
+        ax.scatter(
+            row["absolute_salinity_g_kg"],
+            row["conservative_temperature"],
+            marker="x", color="black", s=100, linewidths=1.5, zorder=12,
+        )
+        ax.text(
+            row["absolute_salinity_g_kg"],
+            row["conservative_temperature"] + 0.1,
+            row["water_mass"],
+            ha="center", va="bottom", fontsize=14, color="black", zorder=13,
+        )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -176,6 +183,11 @@ def plot_ts(
     seawater_salinity: float = 36.0,
     seawater_temps: tuple = (1, 3, 5, 7, 9, 11),
     label_fontsize: int = 20,
+    fjord=None, 
+    water_mass_csv=None,
+    xmin=_XMIN, xmax=_XMAX,        
+    ymin=_YMIN, ymax=_YMAX,
+  
 ) -> plt.Axes:
     """
     Plot a full TS diagram onto *ax*.
@@ -212,8 +224,8 @@ def plot_ts(
     """
     # ── Density contours ──────────────────────────────────────────────────────
     S_grid, T_grid = np.meshgrid(
-        np.linspace(_XMIN, _XMAX, 100),
-        np.linspace(_YMIN, _YMAX, 100),
+        np.linspace(xmin, xmax, 100),
+        np.linspace(ymin, ymax, 100),
     )
     D = gsw.sigma0(S_grid, T_grid)
 
@@ -224,12 +236,9 @@ def plot_ts(
     )
     ax.clabel(CS, inline=True, fontsize=12, fmt="%.1f")
 
-    dsow = ax.contour(S_grid, T_grid, D, levels=[27.8],
-                      colors="black", linewidths=1.5)
-    ax.clabel(dsow, inline=True, fontsize=12, fmt="%1.1f")
 
-    # ── Water mass shading and labels ─────────────────────────────────────────
-    _add_water_mass_patches(ax, dsow)
+    if water_mass_csv is not None and fjord is not None:
+        _plot_water_mass_markers(ax, water_mass_csv, fjord)
 
     # ── Profile scatter ───────────────────────────────────────────────────────
     draw_order = ["fjord_mouth", "mid_fjord", "near_glacier"]
@@ -272,8 +281,8 @@ def plot_ts(
         )
 
     # ── Axes styling ──────────────────────────────────────────────────────────
-    ax.set_xlim(_XMIN, _XMAX)
-    ax.set_ylim(_YMIN, _YMAX)
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
     ax.set_xlabel("Absolute Salinity (g/kg)",      fontsize=label_fontsize)
     ax.set_ylabel("Conservative Temperature (°C)", fontsize=label_fontsize)
     ax.grid(False)
