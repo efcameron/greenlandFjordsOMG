@@ -4,7 +4,6 @@ ts_diagram.py
 Self-contained module for plotting Temperature-Salinity (TS) diagrams
 for Greenland fjord CTD profiles.
 
-Public API
 ----------
 plot_ts(ax, profiles, fjord_row=None, ...)
     Plot a full TS diagram onto an existing Axes, including:
@@ -169,8 +168,7 @@ def _plot_water_mass_markers(ax, water_mass_csv, fjord): # remove if we dont lik
         )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# Public API
+
 # ══════════════════════════════════════════════════════════════════════════════
 
 def plot_ts(
