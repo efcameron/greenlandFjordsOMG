@@ -3,8 +3,6 @@ bathymetry_map.py
 -----------------
 Self-contained module for plotting fjord bathymetry maps with a Greenland inset.
 
-Public API
-----------
 load_bedmachine(path)  →  BedMachineCache
     Load a BedMachine NetCDF file once; reuse the returned object across many plots.
 
@@ -242,7 +240,7 @@ def _add_greenland_inset(fig, ax_main, x_ng, y_ng, shapefile_defs, inset_offset=
             )
 
     ax_i.scatter(
-        x_ng, y_ng, color="red", marker="*", s=80, # star on inset map
+        x_ng, y_ng, color="red", marker="*", s=100, # star on inset map was 80
         transform=ccrs.NorthPolarStereo(), zorder=10,
     )
 
@@ -375,7 +373,7 @@ def plot_bathymetry(
         style = _style_for_key(key)
         ax_map.scatter(
             x, y,
-            color=style["color"], marker="*", s=350, # stars on main map
+            color=style["color"], marker="*", s=800, edgecolors="white", linewidth=1, # stars on main map were 350
             transform=ccrs.NorthPolarStereo(),
             zorder=10, label=style["label"],
         )
