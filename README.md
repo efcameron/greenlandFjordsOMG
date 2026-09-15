@@ -100,7 +100,7 @@ klu_fjord_data.csv
 --> contains data on Kangerluluk Fjord
 
 qim_fjord_data.csv 
---> contains data on Qarassap Imaa Fjord
+--> contains data on Ikerasaap Sullua (alternative name in the files is Qarassap Imaa) Fjord
 
 fjord_data.csv 
 --> contains data on all fjords in the study and matches CTD pairs 
@@ -124,14 +124,15 @@ The analysis is done using Jupyter notebooks.
 2. fig2_anomalyPlots.ipynb 
 --> calculates and plots the temperature-difference and salinity-difference plots from Figure 2 in the accompanying paper. 
 
-3. fig3_TFandPDS.ipynb 
+3. fig3_boxplots.ipynb
+
+4. fig4_TFandPDS_v3.ipynb 
 --> calculates and plots profiles of thermal forcing and the percentage difference in submarine melt rate (PDS) between the near-glacier CTDs and the fjord mouth CTDs. Also exports PDS profiles for all fjords in one csv file (PDS_profiles.csv)
 
-4. fig_4_caseStudies.ipynb 
+5. fig5_fig6_fjord_case_studies.py
 --> Plots the CTD data and temperature-salinity diagrams for two example fjords.
+--> Dependencies: ts_diagram.py and bathymetry_map.py
 
-5. pds_histograms.ipynb 
---> Calculates the depth-averaged PDS for each profile and plots results on regional and greenland-wide histograms to understand the overall impact of fjord processes on melt rates.
 
 ## Example workflow:
 
